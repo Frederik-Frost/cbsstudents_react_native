@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Graduate",
+    "id": 1,
+    "topLevel" : true,
+    "group": [
+      {
+        "name": "IT and Information in Organizations",
+        "id": 2,
+        "group": [
+          {
+            "name": "MSc in Business Administration and E-business",
+            "id": 3
+          },
+          {
+            "name": "MSc in Business Administration and Information Systems",
+            "id": 4
+          },
+          {
+            "name": "MSc in Business Administration and Data Science",
+            "id": 5
+          }
+        ]
+      },
+      {
+        "name": "Business management",
+        "id": 6,
+        "group": [
+          {
+            "name": "MSc in Finance",
+            "id": 7
+          },
+          {
+            "name": "MSc in Global Finance",
+            "id": 8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bachelor",
+    "id": 9,
+    "topLevel" : true,
+    "group": [
+      {
+        "name": "IT and Information in Organizations",
+        "id": 10,
+        "group": [
+          {
+            "name": "Bachelor in Business Administration and E-business",
+            "id": 11
+          },
+          {
+            "name": "Bachelor in Business Administration and Information Systems",
+            "id": 12
+          },
+          {
+            "name": "Bachelor in Business Administration and Data Science",
+            "id": 13
+          }
+        ]
+      },
+      {
+        "name": "Business management",
+        "id": 14,
+        "group": [
+          {
+            "name": "Bachelor in Finance",
+            "id": 15
+          },
+          {
+            "name": "Bachelor in Global Finance",
+            "id": 16
+          }
+        ]
+      }
+    ]
+  }
+]
