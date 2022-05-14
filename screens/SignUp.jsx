@@ -14,23 +14,27 @@ const SignUp = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [isSelected, setSelection] = useState(false);
-  const state = useSelector((state) => state)
+  const state = useSelector((state) => state);
   const signupErr = useSelector((state) => state.profile.signUpErr);
   const signupInfo = useSelector((state) => state.profile.signupInfo);
+  const [errorMsg, setErrMsg] = useState(signupErr);
 
   const handleSignup = () => {
     console.log(password);
     console.log(repeatPassword);
     if (password == repeatPassword) {
       dispatch(signUpUser(email, password));
-    } else {
-      console.log("passwords dont match");
     }
   };
 
   useEffect(() => {
     if (signupInfo) {
       navigation.navigate("SignIn");
+    }
+    if (signupErr && signupErr.length > 0) {
+      () => {
+        setErrMsg(signupErr);
+      };
     }
   });
 
@@ -65,16 +69,19 @@ const SignUp = ({ navigation }) => {
     <View style={AppStyles.unregisteredContainer}>
       <Image style={AppStyles.loginImg} source={require("../assets/img/cbslogo.png")} />
       <Text style={[AppStyles.tekoTitle, styles.title]}>Sign up to get access</Text>
-      <Text>{signupErr}</Text>
-      <InputGroup data={inputFields} />
+      <InputGroup data={inputFields} err={signupErr} />
       <View style={styles.checkboxContainer}>
-        
-        <BouncyCheckbox value={isSelected} onPress={() => setSelection(prevSelection => !prevSelection)} style={styles.checkbox} fillColor="#32305D" />
+        <BouncyCheckbox
+          value={isSelected}
+          onPress={() => setSelection((prevSelection) => !prevSelection)}
+          style={styles.checkbox}
+          fillColor="#32305D"
+        />
         <Text style={styles.label}>I agree to the terms and conditions</Text>
       </View>
       <TouchableOpacity
         style={[isSelected ? AppStyles.mainBtn : AppStyles.mainBtnDisabled]}
-        disabled={!isSelected ? true : false}
+        disabled={!isSelected && password == repeatPassword ? true : false}
         onPress={() => handleSignup()}
       >
         <Text style={AppStyles.mainBtnText}>Get access</Text>

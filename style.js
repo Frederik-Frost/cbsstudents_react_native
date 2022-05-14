@@ -144,7 +144,6 @@ export const AppStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#0000003d",
-    
   },
   modalContainer: {
     flex: 1,
@@ -158,6 +157,27 @@ export const AppStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white'
   },
+  modalHeader: {
+    // padding: 8,
+    paddingTop: 10,
+    backgroundColor: "#fafafa",
+    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    borderRadius: 10,
+    borderBottomEndRadius: 0,
+    borderBottomStartRadius: 0,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 5.46,
+    elevation: 4
+  }
 
 
 

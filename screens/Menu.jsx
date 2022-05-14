@@ -2,16 +2,12 @@ import { View, TextInput, Text, Button, Image, StyleSheet, TouchableOpacity, Scr
 import { useState } from "react";
 import { AppStyles } from "../style";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../store/actions/ProfileActions";
+import { signOut , toggleNotifications} from "../store/actions/ProfileActions";
 import Toggle from "./../components/Toggle";
 
 const Menu = ({ navigation }) => {
-  
   const profileState = useSelector((state) => state.profile);
   const dispatch = useDispatch();
-  
-
-
   return (
     <ScrollView style={styles.mainContainer}>
       <View style={styles.subContainer}>
@@ -34,8 +30,18 @@ const Menu = ({ navigation }) => {
       </View>
       <View style={[styles.notificationSettings, styles.subContainer]}>
         <Text style={AppStyles.tekoTitle}>Notifications</Text>
-        <Toggle title="Chat" infoText="When you recieve a new message" model={profileState.profileInfo.notifications} />
-        <Toggle title="Event reminder" infoText="An hour before events you are 'going to'" />
+        <Toggle
+          title="Chat"
+          infoText="When you recieve a new message"
+          model={profileState.profileInfo.chatNotifications}
+          toggleSwitch={() => dispatch(toggleNotifications("chatNotifications"))}
+        />
+        <Toggle
+          title="Event reminder"
+          infoText="An hour before events you are 'going to'"
+          model={profileState.profileInfo.eventNotifications}
+          toggleSwitch={() => dispatch(toggleNotifications("eventNotifications"))}
+        />
       </View>
       <View>
         <TouchableOpacity style={styles.logoutBtn} onPress={() => dispatch(signOut())}>

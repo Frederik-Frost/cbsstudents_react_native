@@ -1,6 +1,6 @@
-import { Text, View, FlatList, TextInput } from "react-native";
+import { Text, View, FlatList, TextInput, StyleSheet } from "react-native";
 import { AppStyles } from "../style";
-
+import Ionicons from "react-native-vector-icons/Ionicons";
 const InputGroup = (props) => {
 
   const renderItem = ({ item }) => (
@@ -17,13 +17,34 @@ const InputGroup = (props) => {
     </View>
   );
   return (
+    <View style={AppStyles.inputGroupWrapper}>
+
     <FlatList
-      style={AppStyles.inputGroupWrapper}
       data={props.data}
       renderItem={renderItem}
       keyExtractor={(item, index) => index}
     />
+      <View style={props.err && props.err.length > 0 ? styles.errMsg : styles.hide} >
+        <Ionicons style={styles.danger} name="close-circle-outline" size={24}/> 
+        <Text style={[styles.danger, {marginLeft: 8}] }>{props.err}</Text>
+      </View>
+    </View>
   );
 };
-
+const styles = StyleSheet.create({
+  hide: {
+    display: "none"
+  },
+  errMsg: {
+    display: "flex",
+    flexDirection: "row",
+    textAlign: "center",
+    padding: 14,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  danger: {
+    color: "#B10024",
+  }
+});
 export default InputGroup;

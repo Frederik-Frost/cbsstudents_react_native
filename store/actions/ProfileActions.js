@@ -26,6 +26,8 @@ export const signUpUser = (email, password) => {
       },
     );
     const data = await response.json();
+
+    console.log(response)
     dispatch(!response.ok ? { type: SIGNUP_ERR, payload: data.error.message } : { type: SIGNUP, payload: data });
   };
 };
@@ -150,6 +152,31 @@ export const updateProfileInfo = (name, programme) => {
     profileInfo.programme = programme
 
 
+    const response = await fetch(
+      `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/profiles/${profileId}.json?auth=${idToken}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profileInfo),
+      },
+    );
+    const data = await response.json();
+    console.log("DATA::: ",data)
+    dispatch({ type: UPDATE_PROFILE_INFO, payload: { profileData: data } });
+  };
+};
+
+export const toggleNotifications = (notificationType) => {
+  return async (dispatch, getState) => {
+    const profileState = getState().profile;
+    const idToken = profileState.userInfo.idToken;
+    const profileId = profileState.profileId;
+    
+    let profileInfo = profileState.profileInfo;
+    profileInfo[notificationType] = !profileInfo[notificationType]
+    console.log("::::: PROFILEINFO ::: ",profileState.profileInfo)
     const response = await fetch(
       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/profiles/${profileId}.json?auth=${idToken}`,
       {

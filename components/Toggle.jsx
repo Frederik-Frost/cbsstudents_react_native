@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AppStyles } from "../style";
 
 const Toggle = (props) => {
-  const [isEnabled, setIsEnabled] = useState(props.model);
+  // const [isEnabled, setIsEnabled] = useState(props.model);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   return (
     <View style={styles.mainContainer}>
@@ -14,11 +14,11 @@ const Toggle = (props) => {
         <Text style={AppStyles.infoText}>{props.model}</Text>
       <Switch
         trackColor={{ false: "#AAAAAA", true: "#BABADD" }}
-        thumbColor={isEnabled ? "#5050A5" : "#F5F5F5"}
+        thumbColor={props.model ? "#5050A5" : "#F5F5F5"}
         ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-        style={{ transform: [{ scale: 1.4 }], marginRight: 18 }}
+        onValueChange={props.toggleSwitch}
+        value={props.model}
+        style={{ marginRight: 18 }}
       />
     </View>
   );

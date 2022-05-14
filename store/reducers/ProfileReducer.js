@@ -12,7 +12,6 @@ const initialState = {
   signUpFlow: false,
   addProfileErr: "",
   toNotifications: false
-
 };
 
 const profileReducer = (state = initialState, action) => {

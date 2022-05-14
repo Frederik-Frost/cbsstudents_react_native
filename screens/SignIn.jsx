@@ -12,19 +12,7 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const signUpFlow = useSelector((state) => state.profile.signUpFlow);
-
-
-
-  useEffect(() => {
-
-    // dispatch(test())
-
-
-    // if(signUpFlow == true){
-    //   console.log("navigate ")
-    //   navigation.navigate("BeforeStart")
-    // }
-  })
+  const signInErr = useSelector((state) => state.profile.signInErr);
   const inputFields = [
     {
       value: email,
@@ -51,7 +39,7 @@ const SignUp = ({ navigation }) => {
       
       <Text style={[AppStyles.tekoTitle, styles.title]}>Log in</Text>
 
-      <InputGroup data={inputFields} style={styles.inputGroup}/>
+      <InputGroup data={inputFields} err={signInErr} style={styles.inputGroup}/>
   
       <Text style={styles.bottomLink} onPress={() => navigation.navigate("SignUp")}>
         Forgot your password? Sur røv
