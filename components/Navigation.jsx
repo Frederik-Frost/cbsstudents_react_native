@@ -7,11 +7,11 @@ import SignUp from "./../screens/SignUp";
 import BeforeStart from "./../screens/BeforeStart";
 import NotificationsScreen from "./../screens/NotificationsScreen";
 import EditProfileScreen from "./../screens/EditProfileScreen";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -38,6 +38,7 @@ import { useEffect } from "react";
 //   }
 
 const Navigation = (props) => {
+  const dispatch = useDispatch();
   const Tab = createBottomTabNavigator();
   const Stack = createNativeStackNavigator();
   const state = useSelector((state) => state.profile);
@@ -45,7 +46,8 @@ const Navigation = (props) => {
   const token = useSelector((state) => (state.profile.userInfo ? state.profile.userInfo.idToken : null));
   const profileInfo = useSelector((state) => state.profile.profileInfo);
   const signUpFlow = useSelector((state) => state.profile.signUpFlow);
-  
+
+ 
   const backImage = () => {
     <TouchableOpacity>
       <Ionicons name="chevron-back-outline" size={14} color="#5050A5" />
@@ -99,10 +101,8 @@ const Navigation = (props) => {
           <Stack.Screen name="SignUp" component={SignUp} />
           {/* <Stack.Screen name="BeforeStart" component={BeforeStart} /> */}
         </Stack.Navigator>
-      ) : signUpFlow == true || !profileInfo ? (
-        <Stack.Navigator
-          initialRouteName="BeforeStart"
-        >
+      ) : signUpFlow == true || !profileInfo ? (
+        <Stack.Navigator initialRouteName="BeforeStart">
           <Stack.Screen name="BeforeStart" component={BeforeStart} />
           <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
         </Stack.Navigator>

@@ -2,7 +2,6 @@ import { Text, View, FlatList, TextInput, StyleSheet } from "react-native";
 import { AppStyles } from "../style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const InputGroup = (props) => {
-
   const renderItem = ({ item }) => (
     <View style={AppStyles.inputGroup}>
       <Text style={AppStyles.inputLabel}>{item.label}</Text>
@@ -18,7 +17,6 @@ const InputGroup = (props) => {
   );
   return (
     <View style={AppStyles.inputGroupWrapper}>
-
     <FlatList
       data={props.data}
       renderItem={renderItem}

@@ -1,3 +1,5 @@
+import * as SecureStore from 'expo-secure-store';
+
 export const SIGNUP = "SIGNUP";
 export const SIGNUP_ERR = "SIGNUP_ERR";
 export const SIGNIN = "SIGNIN";
@@ -7,7 +9,15 @@ export const TO_SIGNUP_FLOW = "TO_SIGNUP_FLOW";
 export const ADD_PROFILE_DATA = "ADD_PROFILE_DATA";
 export const END_SIGNUP_FLOW = "END_SIGNUP_FLOW";
 export const UPDATE_PROFILE_INFO = "UPDATE_PROFILE_INFO";
+// export const RESTORE_USER = 'RESTORE_USER';
 
+
+export const restoreUser = (userInfo) => {
+  return (dispatch) =>{
+    dispatch({ type: SIGNIN, payload: userInfo})
+    dispatch(getProfileData(userInfo));
+  };
+};
 
 export const signUpUser = (email, password) => {
   return async (dispatch) => {
@@ -52,6 +62,7 @@ export const signInUser = (email, password) => {
     if (!response.ok) {
       dispatch({ type: SIGNIN_ERR, payload: data.error.message });
     } else {
+      SecureStore.setItemAsync('userInfo', JSON.stringify(data))
       dispatch({ type: SIGNIN, payload: data });
       dispatch(getProfileData(data));
     }
@@ -195,8 +206,7 @@ export const toggleNotifications = (notificationType) => {
 
 export const signOut = () => {
   return (dispatch) => {
-    // localStorage.setItem("userInfo", null);
-    // localStorage.setItem("profileInfo", null);
+    SecureStore.deleteItemAsync('userInfo');
     dispatch({ type: SIGNOUT });
   };
 };

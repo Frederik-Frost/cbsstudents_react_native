@@ -18,9 +18,7 @@ const EditProfileScreen = () => {
     <View>
       <ProgrammeModal
         showModal={modalVisible}
-        handleHideModal={() => {
-          setModalVisible(false);
-        }}
+        handleHideModal={() => {setModalVisible(false)}}
         handleSetProgramme={updateProgramme}
       />
       <View style={styles.topContainer}>

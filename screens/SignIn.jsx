@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Button, FlatList, TextInput, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signInUser, signUpUser, test } from "../store/actions/ProfileActions";
+import { signInUser, signUpUser, restoreUser } from "../store/actions/ProfileActions";
 import { TouchableOpacity } from "react-native";
 import { AppStyles } from "../style";
 import InputGroup from "../components/InputGroup";
-
+import * as SecureStore from 'expo-secure-store';
 
 const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -13,6 +13,22 @@ const SignUp = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const signUpFlow = useSelector((state) => state.profile.signUpFlow);
   const signInErr = useSelector((state) => state.profile.signInErr);
+
+  async function load() {
+    let userInfoFromSecureStore = await SecureStore.getItemAsync("userInfo");
+    
+    if (userInfoFromSecureStore) {
+      console.log("Securestore read success", userInfoFromSecureStore);
+      const storedUserInfo = JSON.parse(userInfoFromSecureStore)
+      dispatch(restoreUser(storedUserInfo));
+    } else {
+      console.log("Securestore read failure");
+    }
+  }
+  useEffect(() => {
+    load();
+  }, []);
+
   const inputFields = [
     {
       value: email,
