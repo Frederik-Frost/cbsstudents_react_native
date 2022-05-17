@@ -63,6 +63,13 @@ export const AppStyles = StyleSheet.create({
     height: 100,
     borderRadius: 100,
   },
+  imgBackground: {
+    backgroundColor: "#fff"
+  },
+  imageBorder: {
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
   loginImg: {
     marginTop: 40
   },

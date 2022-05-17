@@ -63,7 +63,7 @@ const SignUp = ({ navigation }) => {
             <Text style={styles.imageBtnText}>Upload</Text>
           </TouchableOpacity>
         </View>
-        <Image style={[AppStyles.profileImg, styles.imageBorder]} source={require("../assets/img/icon_profile.png")} />
+        <Image style={[AppStyles.profileImg, AppStyles.imageBorder]} source={require("../assets/img/icon_profile.png")} />
       </View>
 
       <View style={styles.infoContainer}>
@@ -136,10 +136,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "OpenSans_700Bold",
     color: "#fff",
-  },
-  imageBorder: {
-    borderWidth: 4,
-    borderColor: "#F5F5F5",
   },
   infoContainer: {
     alignSelf: "stretch",

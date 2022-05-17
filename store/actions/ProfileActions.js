@@ -1,4 +1,4 @@
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 
 export const SIGNUP = "SIGNUP";
 export const SIGNUP_ERR = "SIGNUP_ERR";
@@ -11,10 +11,9 @@ export const END_SIGNUP_FLOW = "END_SIGNUP_FLOW";
 export const UPDATE_PROFILE_INFO = "UPDATE_PROFILE_INFO";
 // export const RESTORE_USER = 'RESTORE_USER';
 
-
 export const restoreUser = (userInfo) => {
-  return (dispatch) =>{
-    dispatch({ type: SIGNIN, payload: userInfo})
+  return (dispatch) => {
+    dispatch({ type: SIGNIN, payload: userInfo });
     dispatch(getProfileData(userInfo));
   };
 };
@@ -37,7 +36,7 @@ export const signUpUser = (email, password) => {
     );
     const data = await response.json();
 
-    console.log(response)
+    console.log(response);
     dispatch(!response.ok ? { type: SIGNUP_ERR, payload: data.error.message } : { type: SIGNUP, payload: data });
   };
 };
@@ -62,7 +61,7 @@ export const signInUser = (email, password) => {
     if (!response.ok) {
       dispatch({ type: SIGNIN_ERR, payload: data.error.message });
     } else {
-      SecureStore.setItemAsync('userInfo', JSON.stringify(data))
+      SecureStore.setItemAsync("userInfo", JSON.stringify(data));
       dispatch({ type: SIGNIN, payload: data });
       dispatch(getProfileData(data));
     }
@@ -70,6 +69,7 @@ export const signInUser = (email, password) => {
 };
 
 export const getProfileData = (userData) => {
+  console.log(userData.idToken);
   const idToken = userData.idToken;
   return async (dispatch) => {
     const response = await fetch(
@@ -90,13 +90,18 @@ export const getProfileData = (userData) => {
         profileData = data[key];
       }
     }
-
     if (!response.ok) {
-      dispatch({ type: SIGNIN_ERR, payload: data.error.message });
+      if (data && data.error == "Auth token is expired") {
+        SecureStore.deleteItemAsync("userInfo");
+        dispatch({ type: SIGNOUT });
+      } else {
+        dispatch({ type: SIGNIN_ERR, payload: data.error });
+      }
     } else if (profileId == null || !profileId || profileId == undefined) {
       console.log("no data, go to signup flow");
       dispatch({ type: TO_SIGNUP_FLOW, payload: userData });
     } else {
+      console.log("Adding profile data");
       dispatch({ type: ADD_PROFILE_DATA, payload: { profileId: profileId, profileData: profileData } });
     }
   };
@@ -120,7 +125,7 @@ export const setProfileData = (name, programme) => {
       },
     );
     const data = await response.json();
-    console.log("DATA NAME:::::", data.name)
+    console.log("DATA NAME:::::", data.name);
     if (!response.ok) {
       dispatch({ type: ADD_PROFILE_DATA_ERR, payload: data.error.message });
     } else {
@@ -157,11 +162,10 @@ export const updateProfileInfo = (name, programme) => {
     const profileState = getState().profile;
     const idToken = profileState.userInfo.idToken;
     const profileId = profileState.profileId;
-    
-    let profileInfo = profileState.profileInfo;
-    profileInfo.name = name
-    profileInfo.programme = programme
 
+    let profileInfo = profileState.profileInfo;
+    profileInfo.name = name;
+    profileInfo.programme = programme;
 
     const response = await fetch(
       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/profiles/${profileId}.json?auth=${idToken}`,
@@ -174,7 +178,7 @@ export const updateProfileInfo = (name, programme) => {
       },
     );
     const data = await response.json();
-    console.log("DATA::: ",data)
+    console.log("DATA::: ", data);
     dispatch({ type: UPDATE_PROFILE_INFO, payload: { profileData: data } });
   };
 };
@@ -184,10 +188,10 @@ export const toggleNotifications = (notificationType) => {
     const profileState = getState().profile;
     const idToken = profileState.userInfo.idToken;
     const profileId = profileState.profileId;
-    
+
     let profileInfo = profileState.profileInfo;
-    profileInfo[notificationType] = !profileInfo[notificationType]
-    console.log("::::: PROFILEINFO ::: ",profileState.profileInfo)
+    profileInfo[notificationType] = !profileInfo[notificationType];
+    console.log("::::: PROFILEINFO ::: ", profileState.profileInfo);
     const response = await fetch(
       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/profiles/${profileId}.json?auth=${idToken}`,
       {
@@ -199,14 +203,14 @@ export const toggleNotifications = (notificationType) => {
       },
     );
     const data = await response.json();
-    console.log("DATA::: ",data)
+    console.log("DATA::: ", data);
     dispatch({ type: UPDATE_PROFILE_INFO, payload: { profileData: data } });
   };
 };
 
 export const signOut = () => {
   return (dispatch) => {
-    SecureStore.deleteItemAsync('userInfo');
+    SecureStore.deleteItemAsync("userInfo");
     dispatch({ type: SIGNOUT });
   };
 };

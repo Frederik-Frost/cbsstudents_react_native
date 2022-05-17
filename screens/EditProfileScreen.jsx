@@ -29,10 +29,8 @@ const EditProfileScreen = () => {
           </TouchableOpacity>
         </View>
         <Image
-          style={[AppStyles.profileImg, styles.imageBorder]}
-          source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
-          }}
+          style={[AppStyles.profileImg, AppStyles.imageBorder, AppStyles.imgBackground]}
+          source={require("../assets/img/icon_profile.png")}
         />
       </View>
 
@@ -69,10 +67,7 @@ const styles = StyleSheet.create({
   topActions: {
     // justifyContent: "end",
   },
-  imageBorder: {
-    borderWidth: 4,
-    borderColor: "#fff",
-  },
+ 
   imageBtn: {
     alignItems: "center",
     alignSelf: "stretch",

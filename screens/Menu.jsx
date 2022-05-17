@@ -13,10 +13,8 @@ const Menu = ({ navigation }) => {
       <View style={styles.subContainer}>
         <View style={styles.profileInfo}>
           <Image
-            style={AppStyles.profileImg}
-            source={{
-              uri: "https://reactnative.dev/img/tiny_logo.png",
-            }}
+            style={[AppStyles.profileImg, AppStyles.imageBorder, AppStyles.imgBackground]}
+            source={require("../assets/img/icon_profile.png")}
           />
           <View style={styles.student}>
             <Text style={styles.name}>{profileState.profileInfo.name}</Text>

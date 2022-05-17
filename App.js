@@ -7,6 +7,7 @@ import Home from "./screens/Home";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import profileReducer from "./store/reducers/ProfileReducer";
+import chatReducer from "./store/reducers/ChatReducer";
 // import { useFonts, OpenSans_400Regular, OpenSans_700Bold } from "@expo-google-fonts/open-sans";
 // import { Teko_500Medium } from "@expo-google-fonts/teko";
 import * as Font from 'expo-font';
@@ -16,6 +17,7 @@ import useFonts from "./hooks/useFonts";
 
 const rootReducer = combineReducers({
   profile: profileReducer,
+  chat: chatReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

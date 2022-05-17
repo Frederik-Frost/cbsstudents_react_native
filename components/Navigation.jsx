@@ -1,6 +1,7 @@
 import Home from "./../screens/Home";
 import Discover from "./../screens/Discover";
 import Chat from "./../screens/Chat";
+import ChatRoom from "./../screens/ChatRoom";
 import Menu from "./../screens/Menu";
 import SignIn from "./../screens/SignIn";
 import SignUp from "./../screens/SignUp";
@@ -47,7 +48,6 @@ const Navigation = (props) => {
   const profileInfo = useSelector((state) => state.profile.profileInfo);
   const signUpFlow = useSelector((state) => state.profile.signUpFlow);
 
- 
   const backImage = () => {
     <TouchableOpacity>
       <Ionicons name="chevron-back-outline" size={14} color="#5050A5" />
@@ -86,6 +86,40 @@ const Navigation = (props) => {
       </Stack.Navigator>
     );
   }
+  function ChatStack() {
+    return (
+      <Stack.Navigator
+        initialRouteName="ProfileScreen"
+        screenOptions={{
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontSize: 26,
+            fontFamily: "Teko_500Medium",
+            textTransform: "upperCase",
+            color: "#5050A5",
+          },
+          //   headerBackImageSource: backImage
+        }}
+      >
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{
+            title: "Chat",
+          }}
+        />
+        <Stack.Screen
+          name={"ChatRoom"}
+          title="Edit"
+          component={ChatRoom}
+          options={{
+            title: "ChatRoomName",
+          }}
+          
+        />
+      </Stack.Navigator>
+    );
+  }
   return (
     <NavigationContainer>
       {token == undefined || null ? (
@@ -118,7 +152,7 @@ const Navigation = (props) => {
                 case "Discover":
                   iconName = focused ? "ios-search" : "ios-search-outline";
                   break;
-                case "Chat":
+                case "Chatstack":
                   iconName = focused ? "ios-chatbubbles" : "ios-chatbubbles-outline";
                   break;
                 case "Menu":
@@ -141,7 +175,13 @@ const Navigation = (props) => {
         >
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Discover" component={Discover} />
-          <Tab.Screen name="Chat" component={Chat} />
+          <Tab.Screen
+            name="Chatstack"
+            component={ChatStack}
+            options={{
+              title: "Chat",
+            }}
+          />
           <Tab.Screen name="Menu" component={MenuStack} />
         </Tab.Navigator>
       )}

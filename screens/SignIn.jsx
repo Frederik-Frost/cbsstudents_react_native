@@ -18,7 +18,7 @@ const SignUp = ({ navigation }) => {
     let userInfoFromSecureStore = await SecureStore.getItemAsync("userInfo");
     
     if (userInfoFromSecureStore) {
-      console.log("Securestore read success", userInfoFromSecureStore);
+      console.log("Securestore read success", userInfoFromSecureStore, "DONE");
       const storedUserInfo = JSON.parse(userInfoFromSecureStore)
       dispatch(restoreUser(storedUserInfo));
     } else {
