@@ -1,9 +1,13 @@
+import uuid from 'react-native-uuid';
+
 export class Chatroom {
-    constructor(title, chatmessages, imageUrl, id){
+    constructor(title, chatmessages, imageUrl, members, key){
         this.title = title;
         this.chatmessages = chatmessages;
         this.imageUrl = imageUrl;
-        this.id =  id;
+        this.members = members
+        this.id = uuid.v4();
+        this.key = key
     }
 }
 

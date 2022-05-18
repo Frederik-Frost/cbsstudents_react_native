@@ -9,6 +9,7 @@ export const TO_SIGNUP_FLOW = "TO_SIGNUP_FLOW";
 export const ADD_PROFILE_DATA = "ADD_PROFILE_DATA";
 export const END_SIGNUP_FLOW = "END_SIGNUP_FLOW";
 export const UPDATE_PROFILE_INFO = "UPDATE_PROFILE_INFO";
+
 // export const RESTORE_USER = 'RESTORE_USER';
 
 export const restoreUser = (userInfo) => {
@@ -214,6 +215,7 @@ export const signOut = () => {
     dispatch({ type: SIGNOUT });
   };
 };
+
 // export const addChatRoom = (chatroomName) => {
 //   return async (dispatch, getState) => {
 //     const idToken = getState().chat.userInfo.idToken

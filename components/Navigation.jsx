@@ -8,35 +8,16 @@ import SignUp from "./../screens/SignUp";
 import BeforeStart from "./../screens/BeforeStart";
 import NotificationsScreen from "./../screens/NotificationsScreen";
 import EditProfileScreen from "./../screens/EditProfileScreen";
+import NewChat from "./../screens/NewChat";
+import CreateChatModal from "./../components/CreateChatModal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-// import { useFonts, Teko_500Medium } from "@expo-google-fonts/teko";
-
-// import Icon from 'react-native-ionicons'
-// import { useSelector } from "react-redux";
-
-//     return (
-//       <Stack.Navigator initialRouteName="Home">
-//         <Stack.Screen name="Home" component={Home} />
-//         <Stack.Screen name="Screen1" component={Screen1} />
-//         <Stack.Screen name="Todo" component={TodoScreen} />
-//       </Stack.Navigator>
-//     );
-//   }
-
-//   function SettingsStack() {
-//     return (
-//       <Drawer.Navigator initialRouteName="Settings">
-//         <Drawer.Screen name="Settings" component={Settings} />
-//       </Drawer.Navigator>
-//     );
-//   }
+import { useEffect, useState } from "react";
 
 const Navigation = (props) => {
   const dispatch = useDispatch();
@@ -47,13 +28,15 @@ const Navigation = (props) => {
   const token = useSelector((state) => (state.profile.userInfo ? state.profile.userInfo.idToken : null));
   const profileInfo = useSelector((state) => state.profile.profileInfo);
   const signUpFlow = useSelector((state) => state.profile.signUpFlow);
+  const [modalVisible, setModalVisible] = useState(false);
+  // const backImage = () => {
+  //   <TouchableOpacity>
+  //     <Ionicons name="chevron-back-outline" size={14} color="#5050A5" />
+  //   </TouchableOpacity>;
+  // };
 
-  const backImage = () => {
-    <TouchableOpacity>
-      <Ionicons name="chevron-back-outline" size={14} color="#5050A5" />
-    </TouchableOpacity>;
-  };
-  function MenuStack() {
+
+function MenuStack() {
     return (
       <Stack.Navigator
         initialRouteName="ProfileScreen"
@@ -86,7 +69,7 @@ const Navigation = (props) => {
       </Stack.Navigator>
     );
   }
-  function ChatStack() {
+  function ChatStack(props) {
     return (
       <Stack.Navigator
         initialRouteName="ProfileScreen"
@@ -106,6 +89,11 @@ const Navigation = (props) => {
           component={Chat}
           options={{
             title: "Chat",
+            headerRight: () => (
+              <TouchableOpacity>
+                <Ionicons name="create-outline" size={20} color="blue" />
+              </TouchableOpacity>
+            ),
           }}
         />
         <Stack.Screen
@@ -115,8 +103,16 @@ const Navigation = (props) => {
           options={{
             title: "ChatRoomName",
           }}
-          
         />
+        
+        {/* <Stack.Screen
+          name="newChat"
+          title="New chat"
+          component={NewChat}
+          options={{
+            headerShown: false
+          }}
+        /> */}
       </Stack.Navigator>
     );
   }

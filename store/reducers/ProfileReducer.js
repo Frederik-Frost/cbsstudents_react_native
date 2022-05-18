@@ -1,6 +1,4 @@
 import { SIGNUP, SIGNUP_ERR, SIGNIN, SIGNIN_ERR, SIGNOUT, TO_SIGNUP_FLOW , ADD_PROFILE_DATA, ADD_PROFILE_DATA_ERR, END_SIGNUP_FLOW, UPDATE_PROFILE_INFO} from "../actions/ProfileActions";
-import * as SecureStore from 'expo-secure-store';
-let storage = SecureStore;
 
 const initialState = {
   signupInfo: null,
@@ -11,7 +9,7 @@ const initialState = {
   profileId: null,
   signUpFlow: false,
   addProfileErr: "",
-  toNotifications: false
+  toNotifications: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -53,8 +51,7 @@ const profileReducer = (state = initialState, action) => {
 
     case SIGNOUT:
       console.log(action.payload);
-      return { ...state, userInfo: null };
-
+      return { ...state, userInfo: null };      
     default:
       return state;
   }
