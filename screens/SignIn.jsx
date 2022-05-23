@@ -58,7 +58,7 @@ const SignUp = ({ navigation }) => {
       <InputGroup data={inputFields} err={signInErr} style={styles.inputGroup}/>
   
       <Text style={styles.bottomLink} onPress={() => navigation.navigate("SignUp")}>
-        Forgot your password? Sur røv
+        Forgot your password?
       </Text>
 
       <TouchableOpacity style={[AppStyles.mainBtn, styles.mainBtn]} onPress={() => dispatch(signInUser(email, password))}>

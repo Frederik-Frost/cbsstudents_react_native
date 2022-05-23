@@ -12,9 +12,6 @@ const ChatRoom = ({ route, navigation }) => {
   const flatListRef = useRef();
   const currentChat = useSelector((state) => state.chat.currentChat);
   // const chatmessages = useSelector((state) => state.chat.currentChat.chatmessages)
-  console.log("CHAATROOM:::::::::: ",chatroom)
-  // console.log("CURRENT CHAT ", currentChat);
-  // console.log("CURRENT CHAT ", currentChat.chatmessages);
   
   const handleSendMessage = () => {
     dispatch(sendMessage(message, chatroom));

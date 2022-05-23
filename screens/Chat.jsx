@@ -25,10 +25,10 @@ const Chat = ({ navigation }) => {
     setModalVisible(false);
     dispatch(newChatroom(chatData));
   };
-  const findName = (item) => {
-    const chatReceiverId = item.members.find((id) => id != profile.userId) || "";
+  const findName = (chatroom) => {
+    const chatReceiverId = chatroom.members.find((id) => id != profile.userId) || "";
     const chatReceiver = profileList.find((profile) => profile.userId == chatReceiverId);
-    return chatReceiver ? chatReceiver.name : item.title;
+    return chatReceiver ? chatReceiver.name : chatroom.title;
   };
   const findPreviewChat = (item) => {
     if(item && Object.keys(item.chatmessages).length != 0 ){

@@ -104,15 +104,6 @@ function MenuStack() {
             title: "ChatRoomName",
           }}
         />
-        
-        {/* <Stack.Screen
-          name="newChat"
-          title="New chat"
-          component={NewChat}
-          options={{
-            headerShown: false
-          }}
-        /> */}
       </Stack.Navigator>
     );
   }
