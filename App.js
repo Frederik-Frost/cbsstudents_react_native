@@ -8,9 +8,6 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import profileReducer from "./store/reducers/ProfileReducer";
 import chatReducer from "./store/reducers/ChatReducer";
-// import { useFonts, OpenSans_400Regular, OpenSans_700Bold } from "@expo-google-fonts/open-sans";
-// import { Teko_500Medium } from "@expo-google-fonts/teko";
-import * as Font from 'expo-font';
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import useFonts from "./hooks/useFonts";
@@ -40,22 +37,8 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <Navigation style={styles} />
+      <Navigation />
     </Provider>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  nav: {
-    fontFamily: "Teko_500Medium",
-    textTransform: "uppercase",
-  },
-  test: {
-    color: "red",
-  },
-});
+

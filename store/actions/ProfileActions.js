@@ -36,8 +36,6 @@ export const signUpUser = (email, password) => {
       },
     );
     const data = await response.json();
-
-    console.log(response);
     dispatch(!response.ok ? { type: SIGNUP_ERR, payload: data.error.message } : { type: SIGNUP, payload: data });
   };
 };
@@ -70,7 +68,6 @@ export const signInUser = (email, password) => {
 };
 
 export const getProfileData = (userData) => {
-  console.log(userData.idToken);
   const idToken = userData.idToken;
   return async (dispatch) => {
     const response = await fetch(
@@ -99,10 +96,8 @@ export const getProfileData = (userData) => {
         dispatch({ type: SIGNIN_ERR, payload: data.error });
       }
     } else if (profileId == null || !profileId || profileId == undefined) {
-      console.log("no data, go to signup flow");
       dispatch({ type: TO_SIGNUP_FLOW, payload: userData });
     } else {
-      console.log("Adding profile data");
       dispatch({ type: ADD_PROFILE_DATA, payload: { profileId: profileId, profileData: profileData } });
     }
   };
@@ -126,7 +121,6 @@ export const setProfileData = (name, programme) => {
       },
     );
     const data = await response.json();
-    console.log("DATA NAME:::::", data.name);
     if (!response.ok) {
       dispatch({ type: ADD_PROFILE_DATA_ERR, payload: data.error.message });
     } else {
@@ -154,7 +148,7 @@ export const endSignupFlow = (notifications) => {
       },
     );
     const data = await response.json();
-    dispatch({ type: END_SIGNUP_FLOW, payload: { profileId: data.name, profileData: profileInfo } });
+    dispatch({ type: END_SIGNUP_FLOW, payload: { profileId: profileId, profileData: profileInfo } });
   };
 };
 
@@ -163,7 +157,6 @@ export const updateProfileInfo = (name, programme) => {
     const profileState = getState().profile;
     const idToken = profileState.userInfo.idToken;
     const profileId = profileState.profileId;
-
     let profileInfo = profileState.profileInfo;
     profileInfo.name = name;
     profileInfo.programme = programme;
@@ -179,7 +172,6 @@ export const updateProfileInfo = (name, programme) => {
       },
     );
     const data = await response.json();
-    console.log("DATA::: ", data);
     dispatch({ type: UPDATE_PROFILE_INFO, payload: { profileData: data } });
   };
 };
@@ -192,7 +184,6 @@ export const toggleNotifications = (notificationType) => {
 
     let profileInfo = profileState.profileInfo;
     profileInfo[notificationType] = !profileInfo[notificationType];
-    console.log("::::: PROFILEINFO ::: ", profileState.profileInfo);
     const response = await fetch(
       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/profiles/${profileId}.json?auth=${idToken}`,
       {
@@ -204,7 +195,6 @@ export const toggleNotifications = (notificationType) => {
       },
     );
     const data = await response.json();
-    console.log("DATA::: ", data);
     dispatch({ type: UPDATE_PROFILE_INFO, payload: { profileData: data } });
   };
 };
@@ -216,101 +206,3 @@ export const signOut = () => {
   };
 };
 
-// export const addChatRoom = (chatroomName) => {
-//   return async (dispatch, getState) => {
-//     const idToken = getState().chat.userInfo.idToken
-//     const response = await fetch(
-//       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/chatrooms.json?auth=${idToken}`,
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           title: chatroomName
-//         }),
-//       },
-//     );
-//     const data = await response.json();
-//     console.log(data)
-//     if (!response.ok) {
-//       dispatch({ type: ADD_CHATROOM_ERR, payload: data.error.message });
-//     } else {
-//       dispatch({ type: ADD_CHATROOM, payload: {title: chatroomName, id: data.name}, });
-//     }
-//   };
-// };
-// export const getChatrooms = () => {
-//   return async (dispatch, getState) => {
-//     const idToken = getState().chat.userInfo.idToken
-//     const response = await fetch(
-//       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/chatrooms.json?auth=${idToken}`,
-//       {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         }
-//       },
-//     );
-//     const data = await response.json();
-//     console.log(data)
-//     let chatrooms = []
-//     for(const key in data){
-//       chatrooms.push(new Chatroom(data[key].title, [], '', key))
-//     }
-//     if (!response.ok) {
-//       dispatch({ type: GET_CHATROOM_ERR, payload: data.error.message });
-//     } else {
-//       dispatch({ type: GET_CHATROOM, payload: chatrooms});
-//     }
-//   };
-// };
-// export const deleteChatroom = (id) => {
-//   return async (dispatch, getState) => {
-//     const idToken = getState().chat.userInfo.idToken
-//     const response = await fetch(
-//       `https://kea-react-native-default-rtdb.europe-west1.firebasedatabase.app/chatrooms/${id}.json?auth=${idToken}`,
-//       {
-//         method: "DELETE",
-//         headers: {
-//           "Content-Type": "application/json",
-//         }
-//       },
-//     );
-//     const data = await response.json();
-//     console.log(data)
-//     if (!response.ok) {
-//       // ERR
-//       // dispatch({ type: GET_CHATROOM_ERR, payload: data.error.message });
-//     } else {
-//       dispatch({ type: DELETE_CHATROOM, payload: id});
-//     }
-//   };
-// };
-
-// export const updateUserInfo = ( displayName, email, idToken ) => {
-//   return async (dispatch, getState) => {
-//     // const idToken = getState().chat.userInfo.idToken
-//     const response = await fetch(
-//       `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDKBvTPgHF_LfSxc82tHkgYauH9_s_uYco`,
-//       {
-//         method: "POST",
-//         body: JSON.stringify({
-//           idToken: idToken,
-//           displayName: displayName
-//         }),
-//         headers: {
-//           "Content-Type": "application/json",
-//         }
-//       },
-//     );
-//     const data = await response.json();
-//     console.log(data)
-//     if (!response.ok) {
-//       // ERR
-//       // dispatch({ type: GET_CHATROOM_ERR, payload: data.error.message });
-//     } else {
-//       // dispatch({ type: DELETE_CHATROOM, payload: id});
-//     }
-//   };
-// };

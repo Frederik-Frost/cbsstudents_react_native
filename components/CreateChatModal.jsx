@@ -1,4 +1,3 @@
-// import { FadeInRight } from "react-native-reanimated";
 import { StyleSheet,FlatList, Text, View, TouchableOpacity, Modal } from "react-native";
 import { AppStyles } from "../style";
 import { useEffect, useState } from "react";
@@ -9,7 +8,6 @@ const CreateChatModal = (props) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => {props.createChat(item)}}>
       <Text>{item.name}</Text>
-      <Text>{item.userId}</Text>
     </TouchableOpacity>
   );
 
@@ -30,7 +28,6 @@ const CreateChatModal = (props) => {
               <Ionicons name="close-circle-outline" size={30} />
             </TouchableOpacity>
           </View>
-          <Text>Add flatlist with all users here</Text>
           <FlatList
             data={props.listData}
             renderItem={renderItem}

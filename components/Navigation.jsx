@@ -8,8 +8,6 @@ import SignUp from "./../screens/SignUp";
 import BeforeStart from "./../screens/BeforeStart";
 import NotificationsScreen from "./../screens/NotificationsScreen";
 import EditProfileScreen from "./../screens/EditProfileScreen";
-import NewChat from "./../screens/NewChat";
-import CreateChatModal from "./../components/CreateChatModal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -29,13 +27,7 @@ const Navigation = (props) => {
   const profileInfo = useSelector((state) => state.profile.profileInfo);
   const signUpFlow = useSelector((state) => state.profile.signUpFlow);
   const [modalVisible, setModalVisible] = useState(false);
-  // const backImage = () => {
-  //   <TouchableOpacity>
-  //     <Ionicons name="chevron-back-outline" size={14} color="#5050A5" />
-  //   </TouchableOpacity>;
-  // };
-
-
+ 
 function MenuStack() {
     return (
       <Stack.Navigator
@@ -47,8 +39,7 @@ function MenuStack() {
             fontFamily: "Teko_500Medium",
             textTransform: "upperCase",
             color: "#5050A5",
-          },
-          //   headerBackImageSource: backImage
+          }
         }}
       >
         <Stack.Screen
@@ -117,10 +108,8 @@ function MenuStack() {
             cardStyle: { backgroundColor: "#fff" },
           }}
         >
-          {/* <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} /> */}
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
-          {/* <Stack.Screen name="BeforeStart" component={BeforeStart} /> */}
         </Stack.Navigator>
       ) : signUpFlow == true || !profileInfo ? (
         <Stack.Navigator initialRouteName="BeforeStart">

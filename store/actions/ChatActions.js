@@ -90,6 +90,7 @@ export const newChatroom = (chatroomData) => {
       },
     );
     const data = await response.json();
+    newChatroom.key = data.name
     dispatch({ type: NEW_CHATROOM, payload: newChatroom });
   };
 };
@@ -121,7 +122,7 @@ export const getChatrooms = () => {
     if (!response.ok) {
       dispatch({ type: GET_CHATROOMS_ERR, payload: data.error });
     } else {
-      dispatch({ type: GET_CHATROOMS, payload: chatrooms });
+      dispatch({ type: GET_CHATROOMS, payload: {chatrooms: chatrooms, userId: getState().profile.profileInfo.userId} });
     }
   };
 };

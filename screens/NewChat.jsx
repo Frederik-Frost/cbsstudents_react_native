@@ -6,9 +6,7 @@ const NewChat = ({ navigation }) => {
   const dispatch = useDispatch();
   const profiles = useSelector((state) => state.profile.profiles);
 
-    useEffect(() => {
-        console.log("Mounted")  
-    }, [])
+
 
 
     

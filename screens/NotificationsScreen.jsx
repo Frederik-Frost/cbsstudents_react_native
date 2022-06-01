@@ -19,7 +19,7 @@ const SignUp = ({ navigation }) => {
       <TouchableOpacity style={[AppStyles.mainBtn, styles.mainBtn]} onPress={() => dispatch(endSignupFlow(true))}>
         <Text style={[AppStyles.mainBtnText, styles.textCenter]}>Turn on notifications</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[AppStyles.mainBtn, styles.secondaryBtn]} onPress={() => dispatch(endSignupFlow(true))}>
+      <TouchableOpacity style={[AppStyles.mainBtn, styles.secondaryBtn]} onPress={() => dispatch(endSignupFlow(false))}>
         <Text style={[AppStyles.mainBtnText, styles.textCenter, styles.textDark]}>Maybe later</Text>
       </TouchableOpacity>
     </View>

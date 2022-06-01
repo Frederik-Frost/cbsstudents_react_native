@@ -22,21 +22,19 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, currentChat: {...action.payload.currentChatroom, chatmessages: action.payload.messages} };
     
     case GET_CHATROOMS:
-      return { ...state, chatrooms: action.payload };
+      // return { ...state, chatrooms: action.payload };
+      return { ...state, chatrooms: action.payload.chatrooms.filter(chat => chat.members.includes(action.payload.userId)) };
     
     case GET_CHATROOMS_ERR:
       return { ...state, chatroomErr: action.payload };
     
     case CLEAR_CURRENT_CHATROOM_STATE:
-      console.log("CLEARED CURRENT CHAT STATE")
       return { ...state, currentChat: {} };
     
     case ADD_PROFILES:
-      console.log("add profilelist")
       return { ...state, profileList: action.payload };
     
     case NEW_CHATROOM:
-      console.log("add Chatroom")
       return { ...state, chatrooms: [action.payload, ...state.chatrooms] };
 
     default:

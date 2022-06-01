@@ -20,8 +20,6 @@ const SignUp = ({ navigation }) => {
   const [errorMsg, setErrMsg] = useState(signupErr);
 
   const handleSignup = () => {
-    console.log(password);
-    console.log(repeatPassword);
     if (password == repeatPassword) {
       dispatch(signUpUser(email, password));
     }
